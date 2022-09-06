@@ -1,6 +1,4 @@
-﻿/* Copyright (c) Logitech Corporation. All rights reserved. Licensed under the MIT License.*/
-
- namespace VRpen.Scripts
+﻿namespace VRpen.Scripts
 {
     using Logitech.Scripts;
     using UnityEngine;

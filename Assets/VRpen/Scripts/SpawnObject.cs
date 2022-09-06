@@ -14,6 +14,9 @@ namespace VRpen.Scripts
         private SketchWorld SketchWorld;
         private CommandInvoker Invoker;
 
+        [SerializeField] 
+        private GameObject TipRepresentation;
+
         private void Awake()
         {
             GetComponent<ButtonInput>().OnSpawnObject += HandleSpawnObject;
@@ -21,17 +24,17 @@ namespace VRpen.Scripts
 
         private void HandleSpawnObject()
         {
-            Debug.Log("Spawning!");
+            Vector3 pos = TipRepresentation.transform.position;
+            
             SketchWorld = Instantiate(Defaults.SketchWorldPrefab).GetComponent<SketchWorld>();
             LineSketchObject = Instantiate(Defaults.LineSketchObjectPrefab).GetComponent<LineSketchObject>();
             Invoker = new CommandInvoker();
             Invoker.ExecuteCommand(new AddObjectToSketchWorldRootCommand(LineSketchObject, SketchWorld));
-            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(1, 1, 1)));
-            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(0, 1, 0)));
-            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(0, 1, -1)));
-            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(1, 1, 1)));
+            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(pos.x, pos.y, pos.z)));
+            //calling this twice, crash with less than 3 points
+            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(0, 0, 0)));
+            Invoker.ExecuteCommand(new AddControlPointCommand(this.LineSketchObject, new Vector3(0, 0, 0)));
             Invoker.Undo();
-            
         }
     }
 }
