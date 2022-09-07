@@ -3,11 +3,12 @@
     using Logitech.Scripts;
     using UnityEngine;
     using Valve.VR;
+    using System;
 
     /// <summary>
     /// Visually shows the touch position of a TrackedDevice trackpad.
     /// </summary>
-    public class TipInput : MonoBehaviour
+    public class TouchInput : MonoBehaviour
     {
         [Header("Input")]
         public bool GetInputSourceFromStylusDetection = true;
@@ -17,32 +18,36 @@
         private SteamVR_Action_Boolean _touchInput;
         [SerializeField]
         private SteamVR_Action_Vector2 _touchPosition;
-
-        [SerializeField]
-        private Transform _touchRepresentation;
-
+        
+        public event Action OnSwipeIncrease = delegate { };
+        public event Action OnSwipeDecrease = delegate { };
+        
         private void Update()
         {
             SteamVR_Input_Sources inputSource = GetInputSourceFromStylusDetection
                 ? PrimaryDeviceDetection.PrimaryDeviceBehaviourPose.inputSource
                 : ManualSteamVRInputSource;
-
+            
             if (_touchInput.GetStateDown(inputSource))
             {
-                _touchRepresentation.gameObject.SetActive(true);
+                
             }
-
+            
             if (_touchInput.GetState(inputSource))
             {
-                Vector2 touchPosition = _touchPosition.axis / 2;
-                _touchRepresentation.localPosition = touchPosition;
-                
-                Debug.Log(_touchRepresentation.localPosition);
+                if (_touchPosition.delta.x < 0)
+                {
+                    OnSwipeIncrease();
+                }
+                else if (_touchPosition.delta.x > 0)
+                {
+                    OnSwipeDecrease();
+                }
             }
 
             if (_touchInput.GetStateUp(inputSource))
             {
-                _touchRepresentation.gameObject.SetActive(false);
+
             }
         }
     }

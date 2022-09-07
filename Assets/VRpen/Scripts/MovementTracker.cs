@@ -10,7 +10,7 @@ namespace VRpen.Scripts
         
         //Amount of movement before actions gets delegated
         [SerializeField]
-        private float _deltaThreshold = 0.01f;
+        private float _deltaMovementThreshold = 0.01f;
         
         private Vector3 _tipPosition = new Vector3(0,0, 0);
 
@@ -18,7 +18,7 @@ namespace VRpen.Scripts
 
         private void Update()
         {
-            if (Vector3.Distance(_tipRepresentation.transform.position, _tipPosition) > _deltaThreshold)
+            if (Vector3.Distance(_tipRepresentation.transform.position, _tipPosition) > _deltaMovementThreshold)
             {
                 _tipPosition = _tipRepresentation.transform.position;
                 OnControlerMove(_tipPosition);
