@@ -18,7 +18,8 @@
         private SteamVR_Action_Boolean _input;
 
 
-        public event Action OnSpawnObject = delegate { };
+        public event Action OnDrawRequest = delegate { };
+        public event Action OnCancelDrawRequest = delegate { };
 
         private void Update()
         {
@@ -28,14 +29,12 @@
 
             if (_input.GetStateDown(inputSource))
             {
-                //Debug.Log("button down");
-
-                OnSpawnObject();
+                OnDrawRequest();
             }
 
             if (_input.GetStateUp(inputSource))
             {
-                //Debug.Log("button up");
+                OnCancelDrawRequest();
             }
         }
     }
