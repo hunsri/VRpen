@@ -78,13 +78,13 @@ public class VRSketchingExample : MonoBehaviour
         Invoker.ExecuteCommand(new AddObjectToSketchWorldRootCommand(SketchObjectGroup, SketchWorld));
 
         //Serialize the SketchWorld to a XML file
-        SavePath = System.IO.Path.Combine(Application.dataPath, "YourSketch.xml");
-        SketchWorld.SaveSketchWorld(SavePath);
+        //SavePath = System.IO.Path.Combine(Application.dataPath, "YourSketch.xml");
+        //SketchWorld.SaveSketchWorld(SavePath);
 
         //Create another SketchWorld and load the serialized SketchWorld
-        DeserializedSketchWorld = Instantiate(Defaults.SketchWorldPrefab).GetComponent<SketchWorld>();
-        DeserializedSketchWorld.LoadSketchWorld(SavePath);
-        DeserializedSketchWorld.transform.position += new Vector3(5, 0, 0);
+        //DeserializedSketchWorld = Instantiate(Defaults.SketchWorldPrefab).GetComponent<SketchWorld>();
+        //DeserializedSketchWorld.LoadSketchWorld(SavePath);
+        //DeserializedSketchWorld.transform.position += new Vector3(5, 0, 0);
 
         //Export the SketchWorld as an OBJ file
         //SketchWorld.ExportSketchWorldToDefaultPath();
