@@ -19,7 +19,6 @@ namespace VRpen.Scripts
         private void Start()
         {
             SketchWorld = Instantiate(Defaults.SketchWorldPrefab).GetComponent<SketchWorld>();
-            //LineSketchObject = Instantiate(Defaults.LineSketchObjectPrefab).GetComponent<LineSketchObject>();
             Invoker = new CommandInvoker();
         }
         
