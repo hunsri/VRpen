@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 using VRSketchingGeometry.SketchObjectManagement;
 using VRSketchingGeometry;
@@ -26,6 +27,8 @@ namespace VRpen.Scripts
         const float maxBrushScale = 0.5f;
         const float minBrushScale = 0.01f;
         private const float brushScaleChangeAbsolute = 0.01f;
+        
+        public event Action<float> OnChangedBrushScale = delegate(float updatedBrushScale) { };
 
         private void Start()
         {
@@ -79,6 +82,8 @@ namespace VRpen.Scripts
             {
                 _brushScale += brushScaleChangeAbsolute;
             }
+
+            OnChangedBrushScale(_brushScale);
         }
 
         private void HandleBrushScaleDecrease()
@@ -91,6 +96,8 @@ namespace VRpen.Scripts
             {
                 _brushScale -= brushScaleChangeAbsolute;
             }
+            
+        OnChangedBrushScale(_brushScale);
         }
 
         private void DrawObject(Vector3 position)
