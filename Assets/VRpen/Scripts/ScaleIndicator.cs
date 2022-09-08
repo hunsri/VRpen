@@ -9,7 +9,7 @@ namespace VRpen.Scripts
         private GameObject _indicator;
 
         [SerializeField]
-        private GameObject _boundTo;
+        private Transform _boundTo;
 
         private void Awake()
         {
@@ -18,12 +18,12 @@ namespace VRpen.Scripts
 
         private void Start()
         {
-            _indicator = Instantiate(_indicator, _boundTo.transform.position, Quaternion.identity);
+            _indicator = Instantiate(_indicator, _boundTo.position, Quaternion.identity);
         }
 
         private void Update()
         {
-            _indicator.transform.position = _boundTo.transform.position;
+            _indicator.transform.position = _boundTo.position;
         }
 
         private void HandleBrushScaleChange(float updatedBrushScale)
