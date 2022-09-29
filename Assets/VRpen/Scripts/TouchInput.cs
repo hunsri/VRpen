@@ -35,11 +35,11 @@
             
             if (_touchInput.GetState(inputSource))
             {
-                if (_touchPosition.delta.x < 0)
+                if (_touchPosition.delta.y < 0)
                 {
                     OnSwipeIncrease();
                 }
-                else if (_touchPosition.delta.x > 0)
+                else if (_touchPosition.delta.y > 0)
                 {
                     OnSwipeDecrease();
                 }
