@@ -1,10 +1,10 @@
-﻿namespace VRpen.Scripts
-{
-    using Logitech.Scripts;
-    using UnityEngine;
-    using Valve.VR;
-    using System;
+﻿using Logitech.Scripts;
+using UnityEngine;
+using Valve.VR;
+using System;
 
+namespace VRpen.Scripts
+{
     /// <summary>
     /// Visually shows the touch position of a TrackedDevice trackpad.
     /// </summary>
