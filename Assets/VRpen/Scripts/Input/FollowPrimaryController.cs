@@ -4,7 +4,7 @@ using Logitech.Scripts;
 
 using Valve.VR;
 
-namespace VRpen.Scripts
+namespace VRpen.Scripts.Input
 {
     public class FollowPrimaryController : MonoBehaviour
     {

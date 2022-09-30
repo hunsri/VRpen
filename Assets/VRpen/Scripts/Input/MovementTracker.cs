@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-namespace VRpen.Scripts
+namespace VRpen.Scripts.Input
 {
     public class MovementTracker : MonoBehaviour
     {

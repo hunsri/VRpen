@@ -3,7 +3,7 @@ using UnityEngine;
 using Valve.VR;
 using System;
 
-namespace VRpen.Scripts
+namespace VRpen.Scripts.Input
 {
     /// <summary>
     /// Visually shows the touch position of a TrackedDevice trackpad.

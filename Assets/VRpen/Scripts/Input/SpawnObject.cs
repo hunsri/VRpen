@@ -8,7 +8,7 @@ using VRSketchingGeometry.Commands.Line;
 using VRSketchingGeometry.Serialization;
 using VRSketchingGeometry.Meshing;
 
-namespace VRpen.Scripts
+namespace VRpen.Scripts.Input
 {
     public class SpawnObject : MonoBehaviour
     {

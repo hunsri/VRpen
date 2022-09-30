@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Logitech.Scripts;
 
-namespace VRpen.Scripts
+namespace VRpen.Scripts.Input
 {
     public class ControllerManager : MonoBehaviour
     {

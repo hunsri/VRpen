@@ -1,4 +1,4 @@
-﻿namespace VRpen.Scripts
+﻿namespace VRpen.Scripts.Input
 {
     using Logitech.Scripts;
     using UnityEngine;
