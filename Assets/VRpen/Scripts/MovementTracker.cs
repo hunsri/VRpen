@@ -10,7 +10,7 @@ namespace VRpen.Scripts
         
         //Amount of movement before actions gets delegated
         [SerializeField]
-        private float _deltaMovementThreshold = 0.01f;
+        private float _deltaMovementThreshold = 0.001f;
         
         private Vector3 _tipPosition = new Vector3(0,0, 0);
 

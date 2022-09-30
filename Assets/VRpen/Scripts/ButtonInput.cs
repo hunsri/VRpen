@@ -23,10 +23,8 @@
 
         private void Update()
         {
-            SteamVR_Input_Sources inputSource = GetInputSourceFromStylusDetection
-                ? PrimaryDeviceDetection.PrimaryDeviceBehaviourPose.inputSource
-                : ManualSteamVRInputSource;
-
+            SteamVR_Input_Sources inputSource = ControllerManager.PrimaryInputSource;
+            
             if (_input.GetStateDown(inputSource))
             {
                 OnDrawRequest();

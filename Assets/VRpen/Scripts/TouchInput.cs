@@ -1,10 +1,10 @@
-﻿namespace VRpen.Scripts
-{
-    using Logitech.Scripts;
-    using UnityEngine;
-    using Valve.VR;
-    using System;
+﻿using Logitech.Scripts;
+using UnityEngine;
+using Valve.VR;
+using System;
 
+namespace VRpen.Scripts
+{
     /// <summary>
     /// Visually shows the touch position of a TrackedDevice trackpad.
     /// </summary>
@@ -24,9 +24,7 @@
         
         private void Update()
         {
-            SteamVR_Input_Sources inputSource = GetInputSourceFromStylusDetection
-                ? PrimaryDeviceDetection.PrimaryDeviceBehaviourPose.inputSource
-                : ManualSteamVRInputSource;
+            SteamVR_Input_Sources inputSource = ControllerManager.PrimaryInputSource;
             
             if (_touchInput.GetStateDown(inputSource))
             {
@@ -35,11 +33,11 @@
             
             if (_touchInput.GetState(inputSource))
             {
-                if (_touchPosition.delta.x < 0)
+                if (_touchPosition.delta.y < 0)
                 {
                     OnSwipeIncrease();
                 }
-                else if (_touchPosition.delta.x > 0)
+                else if (_touchPosition.delta.y > 0)
                 {
                     OnSwipeDecrease();
                 }
