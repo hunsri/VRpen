@@ -7,29 +7,32 @@ using System.Collections;
 using UnityEditor;
 using VRpen.Scripts.Examples;
 
-[CustomEditor(typeof(LineExample))]
-public class EditorScriptLineExample : Editor
+namespace VRpen.Scripts.Examples.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(LineExample))]
+    public class EditorScriptLineExample : UnityEditor.Editor
     {
-        EditorGUILayout.HelpBox("Defaults has to be set to a DefaultReferences.\n" +
-                                "DefaultReferences are Scriptable Objects, containing references to frequently" +
-                                " used prefabs, materials etc.", MessageType.Info);
-        
-        DrawDefaultInspector();
-        
-        EditorGUILayout.HelpBox("Use the buttons below to interact with the scene at runtime", MessageType.Info);
-        
-        LineExample myScript = (LineExample)target;
-        if (GUILayout.Button("Undo"))
+        public override void OnInspectorGUI()
         {
-            myScript.UndoActions(1);
-        }
-        
-        if (GUILayout.Button("Redo"))
-        {
-            myScript.RedoActions(1);
-        }
-    }
+            EditorGUILayout.HelpBox("Defaults has to be set to a DefaultReferences.\n" +
+                                    "DefaultReferences are Scriptable Objects, containing references to frequently" +
+                                    " used prefabs, materials etc.", MessageType.Info);
 
+            DrawDefaultInspector();
+
+            EditorGUILayout.HelpBox("Use the buttons below to interact with the scene at runtime", MessageType.Info);
+
+            LineExample lineScript = (LineExample) target;
+            if (GUILayout.Button("Undo"))
+            {
+                lineScript.UndoActions(1);
+            }
+
+            if (GUILayout.Button("Redo"))
+            { 
+                lineScript.RedoActions(1);
+            }
+        }
+
+    }
 }
