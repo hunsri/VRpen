@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal;
-using UnityEngine;
+﻿using UnityEngine;
 using VRSketchingGeometry;
 using VRSketchingGeometry.Commands;
 using VRSketchingGeometry.Commands.Line;
@@ -34,7 +30,7 @@ namespace VRpen.Scripts.Examples
         [SerializeField]
         private Material customMaterial;
         
-        //Create a SketchWorld, many commands require a SketchWorld to be present
+        //Many commands require a SketchWorld to be present
         private SketchWorld _sketchWorld;
 
         //Creates a CommandInvoker that is necessary to execute commands.
