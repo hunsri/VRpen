@@ -16,3 +16,13 @@ To interact with a scene at runtime you can use the buttons provided in the insp
 ### Interaction
 - Undo actions
 - Redo actions
+
+## BrushExample
+
+## Shows
+- Creation of brushes
+- Adding of materials to line objects
+- Adding of colors to line objects
+
+### Interaction
+- modified line creation

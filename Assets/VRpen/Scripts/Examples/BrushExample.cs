@@ -20,10 +20,10 @@ namespace VRpen.Scripts.Examples
         private LineBrush _roughBrush;
         private LineBrush _bigBrush;
         
-        //the LineSketchObject which will form the reference for all brushes
+        //The LineSketchObject which will form the reference for all brushes
         private static LineSketchObject _brushReference;
         
-        //holds the amount of lines that have been drawn already
+        //Holds the amount of lines that have been drawn already
         private int _linesDrawn = 0;
 
         //A Default holds samples for all elements required to draw, such as the LineSketchObjectPrefab 
@@ -58,12 +58,12 @@ namespace VRpen.Scripts.Examples
             _bigBrush = CreateLineBrush(32, 4f, 32);
             
             //Drawing the lines and applying colors to them
-            ChangeLineMaterialColorTo(Color.red, AddLineToScene(_minimalisticBrush));
-            ChangeLineMaterialColorTo(Color.green, AddLineToScene(_roughBrush));
-            ChangeLineMaterialColorTo(Color.blue, AddLineToScene(_fineBrush));
+            ChangeLineMaterialColorTo(Color.red, DrawLineWithBrush(_minimalisticBrush));
+            ChangeLineMaterialColorTo(Color.green, DrawLineWithBrush(_roughBrush));
+            ChangeLineMaterialColorTo(Color.blue, DrawLineWithBrush(_fineBrush));
             
             //Drawing a line and applying a custom material to it
-            ChangeLineMaterialTo(customMaterial, AddLineToScene(_bigBrush));
+            ChangeLineMaterialTo(customMaterial, DrawLineWithBrush(_bigBrush));
         }
 
         /// <summary>
@@ -84,16 +84,14 @@ namespace VRpen.Scripts.Examples
         }
         
         /// <summary>
-        /// Adds a LineSketchObject into the scene. The given LineBrush object defines the appearance.
+        /// Creates a LineSketchObject and applies a given brush to it.
+        /// The modified LineSketchObject gets placed into the scene.
+        /// The given LineBrush object defines the modification.
         /// </summary>
         /// <param name="lineBrush"></param>
         /// <returns></returns>
-        private LineSketchObject AddLineToScene(LineBrush lineBrush)
+        private LineSketchObject DrawLineWithBrush(LineBrush lineBrush)
         {
-            //Defining the position of the new line
-            int offset = _linesDrawn * 2;
-            Vector3 position = new Vector3(offset, 0, 0);
-
             //Create a LineSketchObject
             LineSketchObject lineSketchObject =
                 Instantiate(defaults.LineSketchObjectPrefab).GetComponent<LineSketchObject>();
@@ -105,6 +103,21 @@ namespace VRpen.Scripts.Examples
             //In that case the change of a brush won't be affected by undo commands.
             //lineSketchObject.SetBrush(lineBrush);
             
+            DrawLine(lineSketchObject);
+            
+            return lineSketchObject;
+        }
+        
+        /// <summary>
+        /// Creates a LineSketchObject and puts it into the scene.
+        /// </summary>
+        /// <param name="lineSketchObject"></param>
+        private void DrawLine(LineSketchObject lineSketchObject)
+        {
+            //Defining the position of the new line
+            int offset = _linesDrawn * 2;
+            Vector3 position = new Vector3(offset, 0, 0);
+            
             //Attaching the new LineSketchObject to the SketchWorld
             Invoker.ExecuteCommand(new AddObjectToSketchWorldRootCommand(lineSketchObject, _sketchWorld));
             //Drawing the actual line
@@ -115,8 +128,6 @@ namespace VRpen.Scripts.Examples
             Invoker.ExecuteCommand(new AddControlPointCommand(lineSketchObject, new Vector3(0, 0, 2) + position));
             
             _linesDrawn += 1;
-
-            return lineSketchObject;
         }
         
         /// <summary>
@@ -148,7 +159,23 @@ namespace VRpen.Scripts.Examples
         /// <param name="color"></param>
         public void CreateCustomLineWithColor(int resolution, float scale, int interpolationSteps, Color color)
         {
-            ChangeLineMaterialColorTo(color, AddLineToScene(CreateLineBrush(resolution, scale, interpolationSteps)));
+            LineSketchObject lineSketchObject =
+                Instantiate(defaults.LineSketchObjectPrefab).GetComponent<LineSketchObject>();
+            
+            //LineSketchObjects can also be modified directly without using predefined brushes.
+            lineSketchObject.SetLineCrossSection
+            (
+                CircularCrossSection.GenerateVertices(resolution, scale),
+                CircularCrossSection.GenerateVertices(resolution),
+                0.2f //This is the default diameter value.
+            );
+            lineSketchObject.SetInterpolationSteps(interpolationSteps);
+            
+            //This would be the equivalent action with using a brush
+            //ChangeLineMaterialColorTo(color, AddLineToScene(CreateLineBrush(resolution, scale, interpolationSteps)));
+            
+            ChangeLineMaterialColorTo(color, lineSketchObject);
+            DrawLine(lineSketchObject);
         }
         
     }
