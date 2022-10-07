@@ -29,7 +29,7 @@ namespace VRpen.Scripts.Examples
             CreateSnailLine(new Vector3(0, 0, 0));
 
             CreateFrameWithGroupedLines(new Vector3(4, 0, 4));
-            CreateFrameWithContinuousLine(new Vector3(4, 0, 0));
+            CreateFrameWithOneLine(new Vector3(4, 0, 0));
         }
 
         /// <summary>
@@ -41,6 +41,7 @@ namespace VRpen.Scripts.Examples
             //Create a LineSketchObject
             LineSketchObject lineSketchObject = Instantiate(defaults.LineSketchObjectPrefab).GetComponent<LineSketchObject>();
             
+            //Adds a new object to the sketch world root. The sketch object is deleted when undoing this command
             Invoker.ExecuteCommand(new AddObjectToSketchWorldRootCommand(lineSketchObject, _sketchWorld));
             Invoker.ExecuteCommand(new AddControlPointCommand(lineSketchObject, new Vector3(0, 0, 0) + position));
             Invoker.ExecuteCommand(new AddControlPointCommand(lineSketchObject, new Vector3(1, 0, 0) + position));
@@ -57,11 +58,13 @@ namespace VRpen.Scripts.Examples
         /// Draws a square with a single line.
         /// </summary>
         /// <param name="position"></param>
-        private void CreateFrameWithContinuousLine(Vector3 position)
+        private void CreateFrameWithOneLine(Vector3 position)
         {
             //Create a LineSketchObject
             LineSketchObject lineSketchObject = Instantiate(defaults.LineSketchObjectPrefab).GetComponent<LineSketchObject>();
             
+            //Adds a new object to the sketch world root. The sketch object is deleted when undoing this command
+            Invoker.ExecuteCommand(new AddObjectToSketchWorldRootCommand(lineSketchObject, _sketchWorld));
             Invoker.ExecuteCommand(new AddControlPointCommand(lineSketchObject, new Vector3(0, 0, 0) + position));
             Invoker.ExecuteCommand(new AddControlPointCommand(lineSketchObject, new Vector3(0, 0, 2) + position));
             Invoker.ExecuteCommand(new AddControlPointCommand(lineSketchObject, new Vector3(2, 0, 2) + position));
