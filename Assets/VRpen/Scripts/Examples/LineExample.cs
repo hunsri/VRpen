@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using VRSketchingGeometry;
 using VRSketchingGeometry.Commands;
 using VRSketchingGeometry.Commands.Line;
@@ -126,7 +127,23 @@ namespace VRpen.Scripts.Examples
         {
             for (int i = 0; i < amount; i++)
             {
-                Invoker.Undo();
+                try
+                {
+                    Invoker.Undo();
+                }
+                catch (ArgumentException e)
+                {
+                    //The error handled here happens when there are only two points in a LineSketchObject left,
+                    //and the last action was a redo.
+                    //The issue is created by the necessity of 3 existing waypoints for re-rendering a LineSketchObject.
+
+                    //This is necessary because of an issue within the modeling kernel
+                    //Please note that this won't resolve all problems
+                    //(such as losing the second waypoint)
+                    Invoker.Redo();
+                    Invoker.Undo();
+                    Invoker.Undo();
+                }
             }
         }
         
